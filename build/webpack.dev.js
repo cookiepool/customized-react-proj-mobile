@@ -34,7 +34,6 @@ module.exports = webpackMerge(webpackCommonConfig, {
     new webpack.HotModuleReplacementPlugin()
   ],
   devServer: {
-    host: '0.0.0.0',
     hot: true,
     port: 9866,
     contentBase: './dist',

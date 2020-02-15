@@ -1,8 +1,9 @@
 module.exports = {
   presets: [
-    ["@babel/perset=-env", {
+    "@babel/preset-react",
+    ["@babel/preset-env", {
       "useBuiltIns": "usage",
-      "core-js": 3
-    }, "@babel/preset-react"]
+      "corejs": '3.6'
+    }]
   ]
 }
