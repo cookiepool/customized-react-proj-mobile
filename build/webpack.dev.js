@@ -1,6 +1,7 @@
 const webpack = require('webpack');
 const webpackMerge = require('webpack-merge');
 const webpackCommonConfig = require('./webpack.config.js');
+const friendlyErrorsWebpackPlugin = require('friendly-errors-webpack-plugin');
 
 module.exports = webpackMerge(webpackCommonConfig, {
   mode: 'development',
@@ -14,7 +15,12 @@ module.exports = webpackMerge(webpackCommonConfig, {
             loader: 'style-loader'
           },
           {
-            loader: 'css-loader'
+            loader: 'css-loader',
+            options: {
+              modules: {
+                localIdentName: '[name]__[local]--[hash:base64:5]'
+              }
+            }
           },
           {
             loader: 'sass-loader',
@@ -31,9 +37,15 @@ module.exports = webpackMerge(webpackCommonConfig, {
   },
   plugins: [
     new webpack.NamedModulesPlugin(),
-    new webpack.HotModuleReplacementPlugin()
+    new webpack.HotModuleReplacementPlugin(),
+    new friendlyErrorsWebpackPlugin({
+      compilationSuccessInfo: {
+        messages: [`Your application is running here: 127.0.0.1:9866`]
+      }
+    })
   ],
   devServer: {
+    host: '0.0.0.0',
     hot: true,
     port: 9866,
     contentBase: './dist',
@@ -41,6 +53,7 @@ module.exports = webpackMerge(webpackCommonConfig, {
     overlay: {
       errors: true,
       warnings: true
-    }
+    },
+    quiet: true
   }
 })
